@@ -1,0 +1,6 @@
+import type { Metadata } from "next";
+import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
+import { notFound } from "next/navigation";
+import { getMember } from "@/lib/content";
+export async function generateMetadata({ params }: { params: Promise<{ member: string }> }): Promise<Metadata> { const { member } = await params; const item = await getMember(member); return { title: item?.name ?? "Member", description: item?.bio ?? undefined }; }
+export default async function MemberPage({ params }: { params: Promise<{ member: string }> }) { const { member } = await params; const item = await getMember(member); if (!item) notFound(); return <section className="detail shell"><header className="detail-header"><span className="eyebrow">@{item.handle}</span><div><h1>{item.name}</h1><p>{item.bio}</p><div className="tag-row">{item.specialties.map((tag) => <span key={tag}>{tag}</span>)}</div><div className="profile-links">{item.githubUrl ? <a className="text-link" href={item.githubUrl} target="_blank" rel="noreferrer">GitHub <ArrowUpRight /></a> : null}{item.linkedinUrl ? <a className="text-link" href={item.linkedinUrl} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight /></a> : null}</div></div></header></section>; }

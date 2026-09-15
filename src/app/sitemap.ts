@@ -1,0 +1,4 @@
+import type { MetadataRoute } from "next";
+import { getArticles, getEvents, getMembers, getProjects, getTeamPosts } from "@/lib/content";
+import { site } from "@/lib/site";
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> { const [events,writeups,posts,members,projects,updates]=await Promise.all([getEvents(),getArticles("writeup"),getArticles("blog"),getMembers(),getProjects(),getTeamPosts()]); const paths=["","/updates","/achievements","/writeups","/projects","/team","/blog","/join","/contact","/security",...updates.map(x=>`/updates/${x.slug}`),...events.map(x=>`/achievements/${x.slug}`),...writeups.map(x=>`/writeups/${x.slug}`),...posts.map(x=>`/blog/${x.slug}`),...members.map(x=>`/team/${x.slug}`),...projects.map(x=>`/projects/${x.slug}`)]; return paths.map((path)=>({url:`${site.url}${path}`,lastModified:new Date()})); }

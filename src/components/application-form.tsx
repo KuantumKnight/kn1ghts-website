@@ -1,0 +1,6 @@
+"use client";
+
+import { useActionState } from "react";
+import { submitApplication } from "@/app/actions";
+import { initialFormState } from "@/lib/form-state";
+export function ApplicationForm() { const [state, action, pending] = useActionState(submitApplication, initialFormState); return <form action={action} className="form-grid"><div className="field full"><label htmlFor="area">Primary area</label><select id="area" name="area"><option value="web">Web</option><option value="pwn">Pwn</option><option value="crypto">Cryptography</option><option value="forensics">Forensics</option><option value="osint">OSINT</option><option value="operations">Event operations</option></select></div><div className="field full"><label htmlFor="experience">Your experience</label><textarea id="experience" name="experience" minLength={40} maxLength={5000} required /></div><div className="field full"><label htmlFor="links">Relevant links</label><input id="links" name="links" maxLength={1000} placeholder="GitHub, portfolio, CTFtime" /></div><div className="field full"><button className="button" disabled={pending}>{pending ? "Submitting…" : "Submit application"}</button></div><p className="form-message" role="status">{state.message}</p></form>; }

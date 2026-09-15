@@ -1,0 +1,4 @@
+import type { Metadata } from "next";
+import { PageIntro } from "@/components/page-intro";
+export const metadata: Metadata = { title: "Security", description: "Security contact and disclosure guidance for KN1GHTS." };
+export default function SecurityPage() { return <><PageIntro eyebrow="Security contact" title="Report with clarity." description="If you believe you have found a security issue in a KN1GHTS property, use the contact form and select Security research." /><section className="content-section shell"><div className="security-copy"><h2>Responsible disclosure</h2><p>Include the affected property, reproduction steps, impact, and a safe way to contact you. Avoid accessing data that is not yours or disrupting live services.</p><h2>Encrypted contact</h2><p>A public PGP key and verified fingerprint will appear here after the permanent security mailbox is configured. No key is published until it can be independently verified.</p></div></section></>; }
